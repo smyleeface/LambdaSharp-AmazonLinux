@@ -1,5 +1,5 @@
-LambdaSharp on AmazonLinux
---------------------------
+LambdaSharp on Debian (microsoft/dotnet)
+----------------------------------------
 
 [LambdaSharpTool](https://github.com/LambdaSharp/LambdaSharpTool) installed on AmazonLinux.
 
