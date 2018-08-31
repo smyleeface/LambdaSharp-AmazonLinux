@@ -8,10 +8,10 @@ LambdaSharp on AmazonLinux
 From your project root run:
 
 ```bash
-docker run -it --rm --name lambdasharprunner -v $PWD:/project -v $HOME/.aws:/root/.aws lambdasharprunner:latest /bin/bash lash deploy
+docker run -it --rm --name lambdasharprunner -v $PWD:/project -v $HOME/.aws:/root/.aws lambdasharprunner:amazonlinux /bin/bash lash deploy
 ```
 
 To build:
 ```bash
-docker build -t lambdasharprunner:latest .
+docker build -t lambdasharprunner:amazonlinux .
 ```
