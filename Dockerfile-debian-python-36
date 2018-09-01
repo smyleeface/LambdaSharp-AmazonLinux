@@ -30,10 +30,9 @@ RUN pip install awscli
 ###############
 # lambdasharp
 ###############
+COPY ./lash-command.sh /usr/bin/lash
 RUN mkdir /tools && \
     cd /tools && \
     git clone https://github.com/LambdaSharp/LambdaSharpTool.git && \
-    echo "dotnet run -p $LAMBDASHARP/src/MindTouch.LambdaSharp.Tool/MindTouch.LambdaSharp.Tool.csproj --" > /usr/bin/lash && \
-    chmod +x /usr/bin/lash
-RUN lash info
-
+    chmod +x /usr/bin/lash && \
+    lash

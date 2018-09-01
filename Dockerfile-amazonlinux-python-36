@@ -10,6 +10,14 @@ ENV DOTNET_URL=https://download.microsoft.com/download/E/8/A/E8AF2EE0-5DDA-4420-
 ##########
 RUN yum install wget git -y
 
+##########
+# python
+##########
+RUN yum install python36 -y && \
+    alternatives --set python /usr/bin/python3.6 && \
+    python --version
+RUN pip install awscli
+
 ###############
 # Dotnet
 ###############
@@ -23,9 +31,9 @@ RUN mkdir -p /usr/share/dotnet && \
 ###############
 # lambdasharp
 ###############
+COPY ./lash-command.sh /usr/bin/lash
 RUN mkdir /tools && \
     cd /tools && \
     git clone https://github.com/LambdaSharp/LambdaSharpTool.git && \
-    echo "dotnet run -p $LAMBDASHARP/src/MindTouch.LambdaSharp.Tool/MindTouch.LambdaSharp.Tool.csproj --" > /usr/bin/lash && \
     chmod +x /usr/bin/lash && \
-    lash info
+    lash
