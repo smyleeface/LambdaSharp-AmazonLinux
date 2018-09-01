@@ -60,7 +60,7 @@ Run from this repository root
 * `latest`
 
     ```bash
-    docker build -t lambdasharprunner:amazonlinux-python-36 -f Dockerfile-amazonlinux-python-36 .
+    docker build -t lambdasharprunner -f Dockerfile-amazonlinux .
     ```
 
 * `amazonlinux`
