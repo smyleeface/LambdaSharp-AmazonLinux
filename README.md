@@ -82,7 +82,7 @@ Run from this repository root
 * `debian`
 
     ```bash
-    docker build -t smyleeeface/lambdasharprunner:debian -f Dockerfile-debian .
+    docker build -t lambdasharprunner:debian -f Dockerfile-debian .
     ```
 * `debian-python-36`
 

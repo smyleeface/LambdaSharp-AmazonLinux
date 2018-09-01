@@ -8,7 +8,7 @@ ENV DOTNET_URL=https://download.microsoft.com/download/E/8/A/E8AF2EE0-5DDA-4420-
 ##########
 # utils
 ##########
-RUN yum install wget git python27-pip -y && \
+RUN yum install wget git zip unzip python27-pip -y && \
     pip install awscli
 
 ###############

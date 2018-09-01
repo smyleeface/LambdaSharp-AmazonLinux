@@ -3,6 +3,12 @@ WORKDIR /project
 
 ENV LAMBDASHARP=/tools/LambdaSharpTool
 
+##########
+# utils
+##########
+RUN apt-get update &&\
+    apt-get install zip -y
+
 ###############
 # lambdasharp
 ###############
