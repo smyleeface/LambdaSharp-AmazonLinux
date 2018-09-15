@@ -1,6 +1,8 @@
 FROM amazonlinux:2018.03
 WORKDIR /project
 
+ARG LAMBDASHARP_BRANCH
+ENV LAMBDASHARP_BRANCH ${LAMBDASHARP_BRANCH:-master}
 ENV LAMBDASHARP=/tools/LambdaSharpTool
 ENV DOTNET_FILENAME=dotnet-sdk-2.1.401-linux-x64.tar.gz
 ENV DOTNET_URL=https://download.microsoft.com/download/E/8/A/E8AF2EE0-5DDA-4420-A395-D1A50EEFD83E/$DOTNET_FILENAME
@@ -34,6 +36,6 @@ RUN mkdir -p /usr/share/dotnet && \
 COPY ./lash-command.sh /usr/bin/lash
 RUN mkdir /tools && \
     cd /tools && \
-    git clone https://github.com/LambdaSharp/LambdaSharpTool.git && \
+    git clone https://github.com/LambdaSharp/LambdaSharpTool.git --branch $LAMBDASHARP_BRANCH && \
     chmod +x /usr/bin/lash && \
     lash
