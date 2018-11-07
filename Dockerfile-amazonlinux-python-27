@@ -27,6 +27,6 @@ RUN mkdir -p /usr/share/dotnet && \
 COPY ./lash-command.sh /usr/bin/lash
 RUN mkdir /tools && \
     cd /tools && \
-    git clone https://github.com/LambdaSharp/LambdaSharpTool.git && \
+    git clone https://github.com/smyleeface/LambdaSharpTool.git -b jukeboxalexa-custom-v0.3 && \
     chmod +x /usr/bin/lash && \
     lash
