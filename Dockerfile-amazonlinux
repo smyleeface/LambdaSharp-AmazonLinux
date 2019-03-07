@@ -1,9 +1,13 @@
 FROM amazonlinux:2018.03
 WORKDIR /project
 
-ENV LAMBDASHARP=/tools/LambdaSharpTool
-ENV DOTNET_FILENAME=dotnet-sdk-2.1.401-linux-x64.tar.gz
-ENV DOTNET_URL=https://download.microsoft.com/download/E/8/A/E8AF2EE0-5DDA-4420-A395-D1A50EEFD83E/$DOTNET_FILENAME
+ARG LAMBDASHARP_VERSION=master
+ENV LAMBDASHARP=/opt/LambdaSharpTool
+
+ENV DOTNET_FILENAME=dotnet-sdk-2.2.104-linux-x64.tar.gz
+ENV DOTNET_URL=https://download.visualstudio.microsoft.com/download/pr/69937b49-a877-4ced-81e6-286620b390ab/8ab938cf6f5e83b2221630354160ef21/$DOTNET_FILENAME
+
+ENV PATH="/usr/bin:${PATH}"
 
 ##########
 # utils
@@ -23,9 +27,8 @@ RUN mkdir -p /usr/share/dotnet && \
 ###############
 # lambdasharp
 ###############
-COPY ./lash-command.sh /usr/bin/lash
-RUN mkdir /tools && \
-    cd /tools && \
-    git clone https://github.com/LambdaSharp/LambdaSharpTool.git && \
+RUN echo "dotnet run -p ${LAMBDASHARP}/src/LambdaSharp.Tool/LambdaSharp.Tool.csproj -- $@" >> /usr/bin/lash
+RUN cd /opt && \
+    git clone --single-branch --branch $LAMBDASHARP_VERSION https://github.com/LambdaSharp/LambdaSharpTool.git && \
     chmod +x /usr/bin/lash && \
     lash
