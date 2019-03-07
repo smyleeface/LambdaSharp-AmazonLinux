@@ -1,7 +1,10 @@
-FROM microsoft/dotnet:2.1-sdk
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2
 WORKDIR /project
 
-ENV LAMBDASHARP=/tools/LambdaSharpTool
+ARG LAMBDASHARP_VERSION=master
+ENV LAMBDASHARP=/opt/LambdaSharpTool
+
+ENV PATH="/usr/bin:${PATH}"
 
 #################
 # update sources
@@ -30,9 +33,9 @@ RUN pip install awscli
 ###############
 # lambdasharp
 ###############
-COPY ./lash-command.sh /usr/bin/lash
-RUN mkdir /tools && \
-    cd /tools && \
-    git clone https://github.com/LambdaSharp/LambdaSharpTool.git && \
+RUN echo "dotnet run -p ${LAMBDASHARP}/src/LambdaSharp.Tool/LambdaSharp.Tool.csproj -- $@" >> /usr/bin/lash
+RUN cd /opt && \
+    git clone --single-branch --branch $LAMBDASHARP_VERSION https://github.com/LambdaSharp/LambdaSharpTool.git && \
     chmod +x /usr/bin/lash && \
     lash
+

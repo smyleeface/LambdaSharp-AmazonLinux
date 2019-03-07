@@ -1,20 +1,23 @@
-FROM microsoft/dotnet:2.1-sdk
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2
 WORKDIR /project
 
-ENV LAMBDASHARP=/tools/LambdaSharpTool
+ARG LAMBDASHARP_VERSION=master
+ENV LAMBDASHARP=/opt/LambdaSharpTool
+
+ENV PATH="/usr/bin:${PATH}"
 
 ##########
 # utils
 ##########
-RUN apt-get update &&\
-    apt-get install zip -y
+RUN apt-get update && \
+    apt-get install zip -y && \
+    apt-get clean all
 
 ###############
 # lambdasharp
 ###############
-COPY ./lash-command.sh /usr/bin/lash
-RUN mkdir /tools && \
-    cd /tools && \
-    git clone https://github.com/LambdaSharp/LambdaSharpTool.git && \
+RUN cd /opt && \
+    git clone --single-branch --branch $LAMBDASHARP_VERSION https://github.com/LambdaSharp/LambdaSharpTool.git
+RUN echo "dotnet run -p ${LAMBDASHARP}/src/LambdaSharp.Tool/LambdaSharp.Tool.csproj -- $@" >> /usr/bin/lash && \
     chmod +x /usr/bin/lash && \
     lash
