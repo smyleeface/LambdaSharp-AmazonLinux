@@ -1,12 +1,12 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:2.2
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1
+WORKDIR /project
 
-ARG LAMBDASHARP_VERSION=0.5.0.2
-ENV PATH="/root/.dotnet/tools:${PATH}"
+ARG LAMBDASHARP_VERSION=0.7.0.15
+ENV PATH="/opt/tool:${PATH}"
 
 ###############
 # lambdasharp
 ###############
-RUN dotnet tool install -g LambdaSharp.Tool --version ${LAMBDASHARP_VERSION} && \
-    lash --help
-
-WORKDIR /project
+RUN mkdir /opt/tool && \
+    dotnet tool install --tool-path /opt/tool LambdaSharp.Tool --version ${LAMBDASHARP_VERSION} && \
+    lash
