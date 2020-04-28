@@ -1,7 +1,7 @@
 LambdaSharpTool Container
 -------------------------
 
-[LambdaSharpTool](https://github.com/LambdaSharp/LambdaSharpTool) installed on AmazonLinux (amazonlinux:2) and Debian (mcr.microsoft.com/dotnet/core/sdk:2.2).
+[LambdaSharpTool](https://github.com/LambdaSharp/LambdaSharpTool) installed on AmazonLinux (amazonlinux:2) and Debian (mcr.microsoft.com/dotnet/core/sdk:3.1).
 
 * .NETCore SDK 3.1.201
 
