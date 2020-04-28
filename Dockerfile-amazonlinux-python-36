@@ -1,42 +1,55 @@
-FROM amazonlinux:2018.03
-WORKDIR /project
+FROM amazonlinux:2
 
-ARG LAMBDASHARP_VERSION=master
-ENV LAMBDASHARP=/opt/LambdaSharpTool
+ARG LAMBDASHARP_VERSION
+ENV DOTNET_NOLOGO=1
+ENV PATH="/opt/tools:${PATH}"
 
-ENV DOTNET_FILENAME=dotnet-sdk-2.2.104-linux-x64.tar.gz
-ENV DOTNET_URL=https://download.visualstudio.microsoft.com/download/pr/69937b49-a877-4ced-81e6-286620b390ab/8ab938cf6f5e83b2221630354160ef21/$DOTNET_FILENAME
+RUN rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm
 
-ENV PATH="/usr/bin:${PATH}"
+RUN yum update -y && \
+    yum install -y wget tar gzip make
 
-##########
-# utils
-##########
-RUN yum install wget git zip unzip -y
+RUN wget https://packages.microsoft.com/keys/microsoft.asc && \
+    rpm --import ./microsoft.asc
+
+RUN yum install -y \
+    openssl-devel \
+    libnghttp2-devel \
+    libidn-devel \
+    libunwind \
+    krb5 \
+    libuuid \
+    lttng-ust \
+    zlib \
+    gcc \
+    dotnet-sdk-3.1
 
 ##########
 # python
 ##########
-RUN yum install python36 -y && \
-    alternatives --set python /usr/bin/python3.6 && \
-    python --version
-RUN pip install awscli
+RUN wget https://www.python.org/ftp/python/3.6.10/Python-3.6.10.tgz
+RUN gunzip Python-3.6.10.tgz
+RUN tar xf Python-3.6.10.tar
+RUN rm -f Python-3.6.0.tar
+RUN cd Python-3.6.10 && \
+	./configure && \
+	make && \
+	make altinstall
 
-###############
-# Dotnet
-###############
-RUN wget $DOTNET_URL
-RUN mkdir -p /usr/share/dotnet && \
-    tar zxf $DOTNET_FILENAME -C /usr/share/dotnet && \
-    ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \
-    dotnet --version && \
-    rm $DOTNET_FILENAME
+RUN yum clean all && rm -rf /var/cache/yum
 
-###############
+RUN ln -sf /usr/local/bin/python3.6 /usr/bin/python && \
+	python --version
+
+################
 # lambdasharp
-###############
-RUN echo "dotnet run -p ${LAMBDASHARP}/src/LambdaSharp.Tool/LambdaSharp.Tool.csproj -- $@" >> /usr/bin/lash
-RUN cd /opt && \
-    git clone --single-branch --branch $LAMBDASHARP_VERSION https://github.com/LambdaSharp/LambdaSharpTool.git && \
-    chmod +x /usr/bin/lash && \
-    lash
+################
+RUN mkdir /opt/tools
+RUN if [ -z "${LAMBDASHARP_VERSION}" ] ; then \
+dotnet tool install LambdaSharp.Tool --tool-path /opt/tools/ \
+; else \
+dotnet tool install LambdaSharp.Tool --tool-path /opt/tools/ --version ${LAMBDASHARP_VERSION} \
+; fi \
+; lash
+
+WORKDIR /project
