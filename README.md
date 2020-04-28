@@ -9,7 +9,7 @@ Tags
 ----
 
 * `latest` [(Dockerfile)](https://github.com/smyleeface/LambdaSharpRunner/blob/master/Dockerfile)
-* `amazonlinux`, `latest` [(Dockerfile-amazonlinux)](https://github.com/smyleeface/LambdaSharpRunner/blob/master/Dockerfile-amazonlinux)
+* `amazonlinux` [(Dockerfile-amazonlinux)](https://github.com/smyleeface/LambdaSharpRunner/blob/master/Dockerfile-amazonlinux)
 * `amazonlinux-python-36` [(Dockerfile-amazonlinux-python-36)](https://github.com/smyleeface/LambdaSharpRunner/blob/master/Dockerfile-amazonlinux-python-36)
 
 Run Commands
