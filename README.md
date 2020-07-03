@@ -1,7 +1,7 @@
 LambdaSharpTool Container
 -------------------------
 
-[LambdaSharpTool](https://github.com/LambdaSharp/LambdaSharpTool) installed on AmazonLinux (amazonlinux:2) and Debian (mcr.microsoft.com/dotnet/core/sdk:2.2).
+[LambdaSharpTool](https://github.com/LambdaSharp/LambdaSharpTool) installed on AmazonLinux (amazonlinux:2) and Debian (mcr.microsoft.com/dotnet/core/sdk:3.1).
 
 * .NETCore SDK 3.1.201
 
@@ -9,7 +9,7 @@ Tags
 ----
 
 * `latest` [(Dockerfile)](https://github.com/smyleeface/LambdaSharpRunner/blob/master/Dockerfile)
-* `amazonlinux`, `latest` [(Dockerfile-amazonlinux)](https://github.com/smyleeface/LambdaSharpRunner/blob/master/Dockerfile-amazonlinux)
+* `amazonlinux` [(Dockerfile-amazonlinux)](https://github.com/smyleeface/LambdaSharpRunner/blob/master/Dockerfile-amazonlinux)
 * `amazonlinux-python-36` [(Dockerfile-amazonlinux-python-36)](https://github.com/smyleeface/LambdaSharpRunner/blob/master/Dockerfile-amazonlinux-python-36)
 
 Run Commands
